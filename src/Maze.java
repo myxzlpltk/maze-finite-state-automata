@@ -15,6 +15,8 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
     BufferedImage hiddenImage;
     /* Gambar start */
     BufferedImage start;
+    /* Gambar start */
+    BufferedImage gameOver;
     /* Gambar saat ini */
     BufferedImage currentImage;
 
@@ -25,8 +27,10 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
      */
     public Maze() throws IOException{
         /* Membaca image dengan ImageIO ke BufferedImage */
-        image = ImageIO.read(getClass().getResource("hidden-maze.png"));
+        image = ImageIO.read(getClass().getResource("maze.png"));
+        hiddenImage = ImageIO.read(getClass().getResource("hidden-maze.png"));
         start = ImageIO.read(getClass().getResource("start.png"));
+        gameOver = ImageIO.read(getClass().getResource("game-over.png"));
 
         /* Menetapkan gambar saat ini menjadi sekarang */
         currentImage = start;
@@ -85,7 +89,13 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
         int x = e.getX();
         int y = e.getY();
 
-        int color = image.getRGB(x, y);
+        int color = (currentImage == image? hiddenImage : currentImage).getRGB(x, y);
+
+        int gameOverColor = -16777216;
+
+        if(color == gameOverColor){
+            currentImage = gameOver;
+        }
 
         System.out.println(color);
 
@@ -99,9 +109,14 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
 
         int color = image.getRGB(x, y);
 
-        if(color == -2560){
-            currentImage = image;
-            repaint();
+        if(currentImage == start){
+            if(color == -2560) {
+                currentImage = image;
+                repaint();
+            }
+        }
+        else if(currentImage == gameOver){
+            currentImage = start;
         }
     }
 
