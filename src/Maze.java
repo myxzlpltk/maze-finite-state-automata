@@ -2,16 +2,21 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Maze extends JComponent implements MouseMotionListener {
+public class Maze extends JComponent implements MouseListener, MouseMotionListener {
 
     /* Gambar utama */
     BufferedImage image;
     /* Gambar tersembunyi */
     BufferedImage hiddenImage;
+    /* Gambar start */
+    BufferedImage start;
+    /* Gambar saat ini */
+    BufferedImage currentImage;
 
     /**
      * Konstruktor
@@ -21,6 +26,10 @@ public class Maze extends JComponent implements MouseMotionListener {
     public Maze() throws IOException{
         /* Membaca image dengan ImageIO ke BufferedImage */
         image = ImageIO.read(getClass().getResource("hidden-maze.png"));
+        start = ImageIO.read(getClass().getResource("start.png"));
+
+        /* Menetapkan gambar saat ini menjadi sekarang */
+        currentImage = start;
     }
 
     /**
@@ -49,6 +58,8 @@ public class Maze extends JComponent implements MouseMotionListener {
 
         /* Mengaktifkan MouseMotionListener */
         game.addMouseMotionListener(game);
+        /* Mengaktifkan MouseListener */
+        game.addMouseListener(game);
     }
 
     @Override
@@ -61,7 +72,7 @@ public class Maze extends JComponent implements MouseMotionListener {
         g.setColor(Color.RED);
         g.fillRect(0, 0, 600, 600);
 
-        g.drawImage(image, 0, 0, null);
+        g.drawImage(currentImage, 0, 0, null);
     }
 
     @Override
@@ -76,8 +87,33 @@ public class Maze extends JComponent implements MouseMotionListener {
 
         int color = image.getRGB(x, y);
 
-        System.out.println(color);
+//        System.out.println(color);
 
         repaint();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("Clicked");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // No Actions
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // No Actions
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // No Actions
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // No Actions
     }
 }
