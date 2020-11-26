@@ -27,10 +27,10 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
      */
     public Maze() throws IOException{
         /* Membaca image dengan ImageIO ke BufferedImage */
-        image = ImageIO.read(getClass().getResource("maze.png"));
-        hiddenImage = ImageIO.read(getClass().getResource("hidden-maze.png"));
-        start = ImageIO.read(getClass().getResource("start.png"));
-        gameOver = ImageIO.read(getClass().getResource("game-over.png"));
+        image = ImageIO.read(getClass().getResource("resources/maze.png"));
+        hiddenImage = ImageIO.read(getClass().getResource("resources/hidden-maze.png"));
+        start = ImageIO.read(getClass().getResource("resources/start.png"));
+        gameOver = ImageIO.read(getClass().getResource("resources/game-over.png"));
 
         /* Menetapkan gambar saat ini menjadi sekarang */
         currentImage = start;
