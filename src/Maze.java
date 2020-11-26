@@ -112,12 +112,13 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
         if(currentImage == start){
             if(color == -2560) {
                 currentImage = image;
-                repaint();
             }
         }
         else if(currentImage == gameOver){
             currentImage = start;
         }
+
+        repaint();
     }
 
     @Override
