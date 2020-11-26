@@ -87,14 +87,22 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
 
         int color = image.getRGB(x, y);
 
-//        System.out.println(color);
+        System.out.println(color);
 
         repaint();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Clicked");
+        int x = e.getX();
+        int y = e.getY();
+
+        int color = image.getRGB(x, y);
+
+        if(color == -2560){
+            currentImage = image;
+            repaint();
+        }
     }
 
     @Override
