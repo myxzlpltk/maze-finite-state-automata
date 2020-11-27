@@ -66,6 +66,10 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
         game.addMouseListener(game);
     }
 
+    private int getRGB(int x, int y){
+        return (currentImage == image ? hiddenImage : currentImage).getRGB(x, y);
+    }
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(600, 600);
@@ -89,12 +93,24 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
         int x = e.getX();
         int y = e.getY();
 
-        int color = (currentImage == image? hiddenImage : currentImage).getRGB(x, y);
+        int color = getRGB(x, y);
 
-        int gameOverColor = -16777216;
+        final int pathColor = -2560;
+        final int gameOverColor = -16777216;
+        final int startEndColor = -889777;
 
-        if(color == gameOverColor){
-            currentImage = gameOver;
+        if(color == pathColor) {
+            // Continue
+        }
+        else if(color == startEndColor) {
+            if(currentImage == start){
+                currentImage = image;
+            }
+        }
+        else{
+            if(currentImage == image) {
+                currentImage = gameOver;
+            }
         }
 
         System.out.println(color);
@@ -104,17 +120,7 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-
-        int color = image.getRGB(x, y);
-
-        if(currentImage == start){
-            if(color == -2560) {
-                currentImage = image;
-            }
-        }
-        else if(currentImage == gameOver){
+        if(currentImage == gameOver){
             currentImage = start;
         }
 
