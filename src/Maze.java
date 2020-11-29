@@ -101,6 +101,8 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
         for (State state : states){
             /* Jika state ditemukan */
             if (state.getColor() == color){
+                System.out.println("Checkpoint");
+
                 /* Pasang checkpoint */
                 currentState = state;
 
