@@ -97,7 +97,7 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
      * @return bool
      */
     public boolean checkPoint(int color){
-        /* Loopign semua state */
+        /* Looping semua state */
         for (State state : states){
             /* Jika state ditemukan */
             if (state.getColor() == color){
@@ -163,18 +163,25 @@ public class Maze extends JComponent implements MouseListener, MouseMotionListen
         if(color == pathColor) {
             // Continue
         }
+        /* Jika warna adalah warna start atau end*/
         else if(color == startEndColor) {
             if(currentImage == start){
+                /* Berpindah ke gambar labirin */
                 currentImage = image;
             }
             else if(currentImage == image){
+                /* Berpindah ke gambar game win */
                 currentImage = gameWin;
             }
         }
+        /* Jika mouse mengarah ke warna di checkpoint */
         else if(currentState != null && currentImage == currentState.getImage() && color == currentState.getColor()){
+            /* Balik ke labirin */
             currentImage = image;
         }
+        /* Selain itu */
         else{
+            /* Jika gambar sekarang merupakan labirin dan nabrak dinding */
             if(currentImage == image && !checkPoint(color)) {
                 if(currentState == null){
                     currentImage = gameOver;
